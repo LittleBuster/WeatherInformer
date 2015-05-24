@@ -21,18 +21,18 @@ type WeatherInfo struct {
 }
 
 type Config struct {
-	Ip 			 string
-	Port 		 uint64
+	Ip string
+	Port uint64
 	SensorTables []string
-	WaterTable 	 string
-	DbIp		 string
-	DbUser		 string
-	DbPwd		 string
-	DbName		 string
+	WaterTable string
+	DbIp string
+	DbUser string
+	DbPwd string
+	DbName string
 }
 
 type Weather struct {
-	cfg 	 Config
+	cfg Config
 	Listener net.Listener	
 }
 
