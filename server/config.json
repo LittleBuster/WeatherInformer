@@ -1,0 +1,21 @@
+{
+	"Ip": "",
+	
+	"Port": 5000,
+	
+	"SensorTables": [
+		"meteo_temp0",
+		"meteo_temp1",
+		"meteo_temp2"
+	],
+
+	"WaterTable": "meteo_water0",
+
+	"DbIp": "",
+
+	"DbUser": "",
+
+	"DbPwd": "",
+
+	"DbName": "meteo"
+}
