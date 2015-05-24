@@ -42,15 +42,15 @@ func (w *Weather) Load(fname string) {
 	sz := finfo.Size()
 
 	f, err := os.Open(fname)
-    if err != nil {
-        log.Local("Error reading config file", "Main", log.LOG_ERROR)
-    }
-    defer f.Close()
+	if err != nil {
+		log.Local("Error reading config file", "Main", log.LOG_ERROR)
+	}
+	defer f.Close()
 
-    b := make([]byte, sz)
-    f.Read( b )
+	b := make([]byte, sz)
+	f.Read( b )
 
-    json.Unmarshal(b, &w.cfg)
+	json.Unmarshal(b, &w.cfg)
 }
 
 func (w *Weather) Start () {
