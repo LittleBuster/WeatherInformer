@@ -100,8 +100,8 @@ void tcpReq() {
           lcd.print(" ");
           
           //make json format
-          client.println("{\"data\":[" + String(int(ul_temp)) + "," + String(int(ul_hum)) + "," + String(int(dom_temp)) + "," 
-          + String(int(dom_hum)) + "," + String(int(podv_temp)) + "," + String(int(podv_hum)) + ","  + String(water) + "]}"); 
+          client.println("{\"Data\":[" + String(int(ul_temp)) + "," + String(int(ul_hum)) + "," + String(int(dom_temp)) + "," 
+          + String(int(dom_hum)) + "," + String(int(podv_temp)) + "," + String(int(podv_hum)) + ","  + String(water) + "]}\\"); 
 close:
           client.stop();
         }
