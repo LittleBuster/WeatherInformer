@@ -28,7 +28,7 @@ func Local( Text string, Module string, Type string ) {
 	Out = "[" + Date + "][" + Type + "][" + Module + "] " + Text + "\n"
 
 	fmt.Println(Out)
-	f, _ := os.OpenFile("log.txt", os.O_RDWR|os.O_APPEND|os.O_CREATE, 0660);
+	f, _ := os.OpenFile("/root/go/src/WeatherInformer/log.txt", os.O_RDWR|os.O_APPEND|os.O_CREATE, 0660);
 	f.Write([]byte(Out))
 	f.Close()
 }

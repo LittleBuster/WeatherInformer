@@ -69,6 +69,7 @@ func (w *Weather) Start () {
 		if err != nil {
 			log.Local("Can not accept client ", "Main", log.LOG_ERROR)
 		}
+		fmt.Println("New connection")
 		go w.ReadData(conn)
 	}
 }
@@ -79,19 +80,24 @@ func (w *Weather) ReadData(c net.Conn) {
 	data := make([]byte, 512)
 	c.Read( data )	
 
-	json.Unmarshal(bytes.Split(data, []byte(`\`))[0], &wInfo)
+	err := json.Unmarshal(bytes.Split(data, []byte(`\`))[0], &wInfo)
+	if err != nil {
+		log.Local("Error parse data", "Main", log.LOG_ERROR)
+		c.Close()
+		return
+	}
 
 	//add to Database
 	mdb := new(mariadb.MariaDB)
 	mdb.Connect(w.cfg.DbIp, w.cfg.DbUser, w.cfg.DbPwd, w.cfg.DbName)
 	if wInfo.Data[1] != 0 {
-		mdb.AddSensorData(wInfo.Data[0], wInfo.Data[1], w.cfg.SensorTables[0])
+		mdb.AddSensorData(wInfo.Data[4], wInfo.Data[5], w.cfg.SensorTables[0])
 	}
 	if wInfo.Data[3] != 0 {
 		mdb.AddSensorData(wInfo.Data[2], wInfo.Data[3], w.cfg.SensorTables[1])
 	}
 	if wInfo.Data[5] != 0 {
-		mdb.AddSensorData(wInfo.Data[4], wInfo.Data[5], w.cfg.SensorTables[2])
+		mdb.AddSensorData(wInfo.Data[0], wInfo.Data[1], w.cfg.SensorTables[2])
 	}
 	mdb.AddWaterData(wInfo.Data[6], w.cfg.WaterTable)
 	mdb.Close()
@@ -101,6 +107,6 @@ func (w *Weather) ReadData(c net.Conn) {
 
 func main() {	
 	var weather Weather
-	weather.Load("config.json")
+	weather.Load("/root/go/src/WeatherInformer/config.json")
 	weather.Start()	
 }

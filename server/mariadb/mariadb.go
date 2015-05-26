@@ -11,6 +11,7 @@ import "time"
 import "strings"
 import "strconv"
 import "database/sql"
+import "WeatherInformer/log"
 import _ "github.com/go-sql-driver/mysql"
 
 type Record struct {
